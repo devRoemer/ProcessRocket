@@ -12,7 +12,7 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "main": "background.js",
+  "main": "./electron/Entrypoint.js",
   "dependencies": {
     "@mdi/font": "5.9.55",
     "core-js": "^3.6.5",
