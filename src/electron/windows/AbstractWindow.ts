@@ -6,6 +6,30 @@ export default abstract class AbstractWindow {
 
     public abstract create(width: number, height: number): void;
 
+    public isVisible(): boolean | undefined {
+        if (!this.browserWindow) {
+            return undefined;
+        }
+
+        return this.browserWindow.isVisible();
+    }
+
+    public show(): void {
+        if (!this.browserWindow) {
+            return;
+        }
+
+        return this.browserWindow.show();
+    }
+
+    public hide(): void {
+        if (!this.browserWindow) {
+            return;
+        }
+
+        return this.browserWindow.hide();
+    }
+
     protected async createBrowserWindow(
         path: string,
         width: number,

@@ -3,6 +3,7 @@ import { app, BrowserWindow } from "electron";
 import AppScheme from "./AppScheme";
 import DevTools from "./DevTools";
 import ExitHandler from "./ExitHandler";
+import TrayIcon from "./TrayIcon";
 import MainWindow from "./windows/MainWindow";
 import WindowManager from "./windows/WindowManager";
 import WindowNames from "./windows/WindowNames";
@@ -22,6 +23,7 @@ app.on("activate", async () => {
 app.on("ready", async () => {
     await DevTools.install();
     await createMainWindow();
+    TrayIcon.create();
 });
 
 ExitHandler.register();
