@@ -2,7 +2,7 @@ import { BrowserWindow } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
 export default abstract class AbstractWindow {
-    protected browserWindow: BrowserWindow | undefined;
+    public browserWindow: BrowserWindow | undefined;
 
     public abstract create(width: number, height: number): void;
 

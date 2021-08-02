@@ -3,6 +3,7 @@ import { app, BrowserWindow } from "electron";
 import AppScheme from "./AppScheme";
 import DevTools from "./DevTools";
 import ExitHandler from "./ExitHandler";
+import TerminalManager from "./terminals/TerminalManager";
 import TrayIcon from "./TrayIcon";
 import MainWindow from "./windows/MainWindow";
 import WindowManager from "./windows/WindowManager";
@@ -27,6 +28,7 @@ app.on("ready", async () => {
 });
 
 ExitHandler.register();
+TerminalManager.register();
 
 async function createMainWindow(): Promise<void> {
     const mainWindow = new MainWindow();
