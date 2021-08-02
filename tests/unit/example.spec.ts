@@ -1,5 +1,5 @@
 describe("HelloWorld.vue", () => {
-  it("test", () => {
-    expect("text").toBe("text");
-  });
+    it("test", () => {
+        expect("text").toBe("text");
+    });
 });
