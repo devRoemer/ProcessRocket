@@ -38,6 +38,7 @@ export default abstract class AbstractWindow {
         this.browserWindow = new BrowserWindow({
             width: width,
             height: height,
+            autoHideMenuBar: true,
             webPreferences: {
                 // Use pluginOptions.nodeIntegration, leave this alone
                 // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
