@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { Component, Vue } from "vue-property-decorator";
 import { Terminal } from "xterm";
 import "xterm/css/xterm.css";
 import "xterm/lib/xterm.js";
@@ -14,8 +14,8 @@ import IpcEventNames from "@/electron/IpcEventNames";
 import ICreateTerminalEventData from "@/electron/terminals/ICreateTerminalEventData";
 import ITerminalEventData from "@/electron/terminals/ITerminalEventData";
 
-export default Vue.extend({
-    name: "HelloWorld",
+@Component({})
+export default class HelloWorld extends Vue {
     mounted(): void {
         const terminalIdentifier = "test";
 
@@ -52,6 +52,6 @@ export default Vue.extend({
             };
             ipcRenderer.send(IpcEventNames.TERMINAL_OUTGOING_DATA, eventData);
         });
-    },
-});
+    }
+}
 </script>
