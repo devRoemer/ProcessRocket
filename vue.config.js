@@ -22,6 +22,7 @@ module.exports = {
         extraResources: ["./src/assets/**"],
         win: {
           icon: "./public/favicon.ico",
+          publish: ["github"],
           target: [
             {
               target: "nsis",
@@ -30,6 +31,14 @@ module.exports = {
             },
           ],
         },
+        publish: [
+          {
+            provider: "github",
+            repo: "ProcessRocket",
+            owner: "devRoemer",
+            releaseType: "draft",
+          },
+        ],
       },
     },
   },
