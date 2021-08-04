@@ -1,4 +1,5 @@
 import { Menu, Tray } from "electron";
+import Environment from "./Environment";
 
 import WindowManager from "./windows/WindowManager";
 import WindowNames from "./windows/WindowNames";
@@ -16,7 +17,8 @@ export class TrayIcon {
             this.tray.destroy();
         }
 
-        this.tray = new Tray("./src/assets/logo-light.png");
+        const assetPath = Environment.getAssetPath();
+        this.tray = new Tray(`${assetPath}/logo-light.png`);
         this.tray.setToolTip("ProcessRocket");
         this.createContextMenu();
         this.addClickHandler();
