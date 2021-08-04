@@ -11,7 +11,7 @@
 
 
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-development-red.svg
-[license-shield]: https://img.shields.io/github/license/devRoemer/ProcessRocket.svg
+[license-shield]: https://img.shields.io/github/license/devRoemer/processrocket.svg
 <!-- [ci-image]:https://github.com/devRoemer/ProcessRocket/workflows/CI/badge.svg -->
 <!-- [ci-url]:https://github.com/devRoemer/ProcessRocket/actions -->
 [maintenance-image]:https://img.shields.io/badge/Maintained%3F-yes-green.svg
