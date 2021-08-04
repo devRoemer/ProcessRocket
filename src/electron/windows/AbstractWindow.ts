@@ -1,5 +1,4 @@
 import { BrowserWindow } from "electron";
-import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
 export default abstract class AbstractWindow {
     public browserWindow: BrowserWindow | undefined;
@@ -45,7 +44,6 @@ export default abstract class AbstractWindow {
                 nodeIntegration: process.env
                     .ELECTRON_NODE_INTEGRATION as unknown as boolean,
                 contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
-                devTools: false,
             },
         });
 
@@ -64,10 +62,7 @@ export default abstract class AbstractWindow {
             await this.browserWindow.loadURL(
                 `${process.env.WEBPACK_DEV_SERVER_URL}${vuePath}`
             );
-            if (!process.env.IS_TEST)
-                this.browserWindow.webContents.openDevTools();
         } else {
-            createProtocol("app");
             // Load the index.html when not in development
             this.browserWindow.loadURL(`app://./index.html${vuePath}`);
         }

@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from "electron";
+import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
 import AppScheme from "./AppScheme";
 import DevTools from "./DevTools";
@@ -22,6 +23,7 @@ app.on("activate", async () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on("ready", async () => {
+    createProtocol("app");
     await DevTools.install();
     await createMainWindow();
     TrayIcon.create();
