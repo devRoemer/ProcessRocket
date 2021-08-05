@@ -1,6 +1,7 @@
 import { Menu, Tray } from "electron";
-import Environment from "./Environment";
 
+import Environment from "./Environment";
+import Translation from "@/Translation";
 import WindowManager from "./windows/WindowManager";
 import WindowNames from "./windows/WindowNames";
 
@@ -36,7 +37,7 @@ export class TrayIcon {
             return;
         }
         const contextMenu = Menu.buildFromTemplate([
-            { role: "quit", label: "Exit" },
+            { role: "quit", label: Translation.t("generic.exit").toString() },
         ]);
         this.tray.setContextMenu(contextMenu);
     }
