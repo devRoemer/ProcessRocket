@@ -1,3 +1,5 @@
 {
-  "generic.exit": "Exit"
+  "generic.exit": "Exit",
+  "updatenotification.body": "A new version of ProcessRocket has been downloaded ({version}). The update will be installed automatically on exit.",
+  "updatenotification.title": "Update ProcessRocket"
 }

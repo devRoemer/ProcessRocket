@@ -6,11 +6,13 @@ import DevTools from "./DevTools";
 import ExitHandler from "./ExitHandler";
 import TerminalManager from "./terminals/TerminalManager";
 import TrayIcon from "./TrayIcon";
+import Updater from "./Updater";
 import MainWindow from "./windows/MainWindow";
 import WindowManager from "./windows/WindowManager";
 import WindowNames from "./windows/WindowNames";
 
 AppScheme.register();
+Updater.register();
 
 app.on("activate", async () => {
     // On macOS it's common to re-create a window in the app when the

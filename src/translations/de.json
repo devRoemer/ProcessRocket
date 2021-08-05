@@ -1,4 +1,6 @@
 {
-  "generic.exit": "Beenden"
+  "generic.exit": "Beenden",
+  "updatenotification.body": "Eine neue Version von ProcessRocket wurde heruntergeladen ({version}). Das Update wird nach dem Beenden automatisch installiert.",
+  "updatenotification.title": "ProcessRocket aktualisieren"
   
 }
