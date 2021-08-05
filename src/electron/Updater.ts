@@ -1,4 +1,3 @@
-import { app } from "electron";
 import { autoUpdater } from "electron-updater";
 
 import Environment from "./Environment";
