@@ -5,11 +5,7 @@ import Environment from "./Environment";
 import Translation from "@/Translation";
 
 export class Updater {
-    public register(): void {
-        app.on("ready", this.checkForUpdates);
-    }
-
-    private async checkForUpdates(): Promise<void> {
+    public async checkForUpdates(): Promise<void> {
         if (!Environment.isPackaged()) {
             return;
         }
@@ -19,7 +15,11 @@ export class Updater {
             body: Translation.t("updatenotification.body").toString(),
         };
 
-        await autoUpdater.checkForUpdatesAndNotify(notification);
+        try {
+            await autoUpdater.checkForUpdatesAndNotify(notification);
+        } catch (_) {
+            console.error("Error while checking for updates");
+        }
     }
 }
 

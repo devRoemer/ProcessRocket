@@ -1,4 +1,4 @@
-import { osLocale } from "os-locale-s";
+import { app } from "electron";
 import Vue from "vue";
 import VueI18n, { LocaleMessages } from "vue-i18n";
 
@@ -22,8 +22,16 @@ export class Translation {
         return messages;
     }
 
+    private getOsLocale(): string {
+        if (app) {
+            return app.getLocale();
+        }
+
+        return navigator.language;
+    }
+
     private getOsLanguage(): string | undefined {
-        const locale = osLocale.sync();
+        const locale = this.getOsLocale();
         return this.localeToLanguageCode(locale);
     }
 
