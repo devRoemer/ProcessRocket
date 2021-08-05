@@ -1,0 +1,56 @@
+name: release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version to tag and release
+        default: ''
+        required: true
+
+jobs:
+  version_and_tag:
+    name: Update version and tag
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v1
+      - run: npm version ${{ github.event.inputs.version }}
+      - uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: Release ${{ github.event.inputs.version }}
+          tags: true
+
+  draft_release:
+    name: draft release
+    needs: [version_and_tag]
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - run: echo "::remove-matcher owner=tsc::"
+      - run: echo "::remove-matcher owner=eslint-compact::"
+      - run: echo "::remove-matcher owner=eslint-stylish::"
+      - name: Get cache directories
+        id: get-cache-dirs
+        run: |
+          echo "::set-output name=npm::$(npm config get cache)"
+          echo "::set-output name=electron::$env:LOCALAPPDATA\electron\Cache"
+          echo "::set-output name=electron-builder::$env:LOCALAPPDATA\electron-builder\Cache"
+      - name: Cache file
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.get-cache-dirs.outputs.npm }}
+            ${{ steps.get-cache-dirs.outputs.electron }}
+            ${{ steps.get-cache-dirs.outputs.electron-builder }}
+          key: ${{ runner.os }}-processrocket-dist-caches-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-processrocket-dist-caches-
+      - run: node --version
+      - run: npm --version
+      - run: npm ci
+      - run: npm rum electron:dist:windows
