@@ -8,36 +8,26 @@ on:
         required: true
 
 jobs:
-  version_and_tag:
-    name: update version and tag
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v1
-      - uses: fregante/setup-git-user@v1
-      - run: npm version ${{ github.event.inputs.version }}
-      - uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          tags: true
-
   draft_release:
     name: draft release
-    needs: [version_and_tag]
     runs-on: windows-latest
     timeout-minutes: 10
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: tags/v${{ github.event.inputs.version }}
+      - uses: actions/checkout@v1
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'
       - run: echo "::remove-matcher owner=tsc::"
       - run: echo "::remove-matcher owner=eslint-compact::"
       - run: echo "::remove-matcher owner=eslint-stylish::"
+      - uses: fregante/setup-git-user@v1
+      - run: npm version ${{ github.event.inputs.version }}
+      - uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tags: true
       - name: Get cache directories
         id: get-cache-dirs
         run: |
