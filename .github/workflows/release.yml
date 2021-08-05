@@ -30,6 +30,8 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: tags/v${{ github.event.inputs.version }}
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'
