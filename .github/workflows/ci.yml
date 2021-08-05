@@ -35,4 +35,10 @@ jobs:
           eslint_flags: './**/*.{vue,ts,js}'
           workdir: ./
       - run: npm run build
-      - run: npm run test:unit
+      - uses: mattallty/jest-github-action@v1.0.3
+        env:
+            GITHUB_TOKEN: ${{ github.token }}
+        with:
+            test-command: "npm run test:unit"
+            coverage-comment: false
+            working-directory: ./
