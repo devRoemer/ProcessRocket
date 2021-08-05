@@ -28,12 +28,6 @@ jobs:
       - run: node --version
       - run: npm --version
       - run: npm ci
-      - uses: reviewdog/action-stylelint@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-check
-          stylelint_input: '**/*.{css,scss,vue}'
-          workdir: ./
       - uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
