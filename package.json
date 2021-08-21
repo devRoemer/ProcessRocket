@@ -22,7 +22,7 @@
   "dependencies": {
     "@mdi/font": "5.9.55",
     "babel-plugin-require-context-hook": "^1.0.0",
-    "core-js": "^3.6.5",
+    "core-js": "^3.16.0",
     "electron-updater": "^4.3.9",
     "node-pty": "^0.10.1",
     "register-service-worker": "^1.7.1",
