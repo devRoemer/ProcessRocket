@@ -1,3 +1,3 @@
 export default abstract class WindowNames {
-    static readonly MAIN_WINDOW: string = "main";
+    public static readonly MAIN_WINDOW: string = "main";
 }

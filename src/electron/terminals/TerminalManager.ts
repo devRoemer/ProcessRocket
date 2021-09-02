@@ -8,16 +8,9 @@ import Terminal from "./Terminal";
 export class TerminalManager {
     private terminals: { [identifier: string]: Terminal } = {};
 
-    private createListener = async (
-        _: Electron.IpcMainEvent,
-        eventData: ICreateTerminalEventData
-    ) => {
+    private createListener = async (_: Electron.IpcMainEvent, eventData: ICreateTerminalEventData) => {
         const window = WindowManager.getWindow(eventData.windowName);
-        await this.createTerminal(
-            eventData.identifier,
-            window,
-            eventData.workingDirectory
-        );
+        await this.createTerminal(eventData.identifier, window, eventData.workingDirectory);
     };
 
     private removeListener = (_: Electron.IpcMainEvent, identifier: string) => {
@@ -34,16 +27,8 @@ export class TerminalManager {
         ipcMain.off(IpcEventNames.TERMINAL_REMOVE, this.removeListener);
     }
 
-    private async createTerminal(
-        identifier: string,
-        attachedWindow: AbstractWindow,
-        startupWorkingDirectory: string
-    ): Promise<void> {
-        const terminal = new Terminal(
-            identifier,
-            attachedWindow,
-            startupWorkingDirectory
-        );
+    private async createTerminal(identifier: string, attachedWindow: AbstractWindow, startupWorkingDirectory: string): Promise<void> {
+        const terminal = new Terminal(identifier, attachedWindow, startupWorkingDirectory);
 
         await terminal.spawn();
 

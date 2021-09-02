@@ -11,7 +11,7 @@ export class Updater {
 
         const notification = {
             title: Translation.t("updatenotification.title").toString(),
-            body: Translation.t("updatenotification.body").toString(),
+            body: Translation.t("updatenotification.body").toString()
         };
 
         try {

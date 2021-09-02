@@ -6,11 +6,7 @@ Vue.use(VueI18n);
 
 export class Translation {
     private loadLocaleMessages(): LocaleMessages {
-        const locales = require.context(
-            "./translations",
-            true,
-            /[A-Za-z0-9-_,\s]+\.json$/i
-        );
+        const locales = require.context("./translations", true, /[A-Za-z0-9-_,\s]+\.json$/i);
         const messages: LocaleMessages = {};
         locales.keys().forEach((key) => {
             const matched = key.match(/([A-Za-z0-9-_]+)\./i);
@@ -44,7 +40,7 @@ export class Translation {
         return new VueI18n({
             locale: this.getOsLanguage(),
             fallbackLocale: "en",
-            messages: this.loadLocaleMessages(),
+            messages: this.loadLocaleMessages()
         });
     }
 }

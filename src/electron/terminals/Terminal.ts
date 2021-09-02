@@ -13,10 +13,7 @@ export default class Terminal {
     private readonly attachedWindow: AbstractWindow;
     private ptyProcess: IPty | undefined;
 
-    private outgoingMessageListener = (
-        _: Electron.IpcMainEvent,
-        eventData: ITerminalEventData
-    ) => {
+    private outgoingMessageListener = (_: Electron.IpcMainEvent, eventData: ITerminalEventData) => {
         if (!this.ptyProcess || this.identifier !== eventData.identifier) {
             return;
         }
@@ -24,15 +21,9 @@ export default class Terminal {
         this.ptyProcess.write(eventData.payload);
     };
 
-    public constructor(
-        identifier: string,
-        attachedWindow: AbstractWindow,
-        startupWorkingDirectory: string
-    ) {
+    public constructor(identifier: string, attachedWindow: AbstractWindow, startupWorkingDirectory: string) {
         this.identifier = identifier;
-        this.startupWorkingDirectory = startupWorkingDirectory
-            ? startupWorkingDirectory
-            : process.env.HOME;
+        this.startupWorkingDirectory = startupWorkingDirectory ? startupWorkingDirectory : process.env.HOME;
         this.attachedWindow = attachedWindow;
     }
 
@@ -53,10 +44,7 @@ export default class Terminal {
         }
 
         if (this.outgoingMessageListener) {
-            ipcMain.off(
-                IpcEventNames.TERMINAL_OUTGOING_DATA,
-                this.outgoingMessageListener
-            );
+            ipcMain.off(IpcEventNames.TERMINAL_OUTGOING_DATA, this.outgoingMessageListener);
         }
 
         this.ptyProcess.kill();
@@ -67,7 +55,7 @@ export default class Terminal {
             name: this.identifier,
             cols: 80,
             rows: 30,
-            cwd: this.startupWorkingDirectory,
+            cwd: this.startupWorkingDirectory
         };
     }
 
@@ -86,21 +74,15 @@ export default class Terminal {
 
             const eventData: ITerminalEventData = {
                 identifier: this.identifier,
-                payload: payload,
+                payload: payload
             };
 
-            browserWindow.webContents.send(
-                IpcEventNames.TERMINAL_INCOMING_DATA,
-                eventData
-            );
+            browserWindow.webContents.send(IpcEventNames.TERMINAL_INCOMING_DATA, eventData);
         });
     }
 
     // Outgoing: user input > terminal process
     private registerOutgoingDataEvent(): void {
-        ipcMain.on(
-            IpcEventNames.TERMINAL_OUTGOING_DATA,
-            this.outgoingMessageListener
-        );
+        ipcMain.on(IpcEventNames.TERMINAL_OUTGOING_DATA, this.outgoingMessageListener);
     }
 }

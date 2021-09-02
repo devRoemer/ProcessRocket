@@ -16,9 +16,7 @@ export class Environment {
     }
 
     public getAssetPath(): string {
-        return this.isPackaged()
-            ? path.join(process.resourcesPath, "src", "assets")
-            : path.join(".", "src", "assets");
+        return this.isPackaged() ? path.join(process.resourcesPath, "src", "assets") : path.join(".", "src", "assets");
     }
 
     public isPackaged(): boolean {

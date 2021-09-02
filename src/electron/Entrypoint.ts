@@ -26,10 +26,10 @@ app.on("ready", async () => {
     await DevTools.install();
     await createMainWindow();
 
-    const TrayIcon = require("./TrayIcon").default;
+    const TrayIcon = (await import("./TrayIcon")).default;
     TrayIcon.create();
 
-    const Updater = require("./Updater").default;
+    const Updater = (await import("./Updater")).default;
     await Updater.checkForUpdates();
 });
 

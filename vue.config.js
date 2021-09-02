@@ -12,12 +12,12 @@ module.exports = {
           // Used for directory names in AppData\local and AppData\local\Programs
           name: "ProcessRocket",
           // Used for directory names in AppData\Roaming
-          productName: "ProcessRocket",
+          productName: "ProcessRocket"
         },
         // Used as a display name
         productName: "ProcessRocket",
         directories: {
-          output: "./setup",
+          output: "./setup"
         },
         extraResources: ["./src/assets/**"],
         win: {
@@ -27,19 +27,19 @@ module.exports = {
             {
               target: "nsis",
 
-              arch: ["x64"],
-            },
-          ],
+              arch: ["x64"]
+            }
+          ]
         },
         publish: [
           {
             provider: "github",
             repo: "ProcessRocket",
             owner: "devRoemer",
-            releaseType: "draft",
-          },
-        ],
-      },
-    },
-  },
+            releaseType: "draft"
+          }
+        ]
+      }
+    }
+  }
 };

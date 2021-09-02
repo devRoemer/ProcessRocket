@@ -29,11 +29,7 @@ export default abstract class AbstractWindow {
         return this.browserWindow.hide();
     }
 
-    protected async createBrowserWindow(
-        path: string,
-        width: number,
-        height: number
-    ): Promise<void> {
+    protected async createBrowserWindow(path: string, width: number, height: number): Promise<void> {
         this.browserWindow = new BrowserWindow({
             width: width,
             height: height,
@@ -41,10 +37,9 @@ export default abstract class AbstractWindow {
             webPreferences: {
                 // Use pluginOptions.nodeIntegration, leave this alone
                 // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-                nodeIntegration: process.env
-                    .ELECTRON_NODE_INTEGRATION as unknown as boolean,
-                contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
-            },
+                nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION as unknown as boolean,
+                contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
+            }
         });
 
         this.loadUrl(path);
@@ -59,9 +54,7 @@ export default abstract class AbstractWindow {
 
         if (process.env.WEBPACK_DEV_SERVER_URL) {
             // Load the url of the dev server if in development mode
-            await this.browserWindow.loadURL(
-                `${process.env.WEBPACK_DEV_SERVER_URL}${vuePath}`
-            );
+            await this.browserWindow.loadURL(`${process.env.WEBPACK_DEV_SERVER_URL}${vuePath}`);
         } else {
             // Load the index.html when not in development
             this.browserWindow.loadURL(`app://./index.html${vuePath}`);

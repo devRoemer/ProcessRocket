@@ -36,9 +36,7 @@ export class TrayIcon {
         if (!this.tray) {
             return;
         }
-        const contextMenu = Menu.buildFromTemplate([
-            { role: "quit", label: Translation.t("generic.exit").toString() },
-        ]);
+        const contextMenu = Menu.buildFromTemplate([{ role: "quit", label: Translation.t("generic.exit").toString() }]);
         this.tray.setContextMenu(contextMenu);
     }
 }
