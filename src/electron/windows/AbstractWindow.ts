@@ -1,47 +1,22 @@
 import { BrowserWindow } from "electron";
 
 export default abstract class AbstractWindow {
-    public browserWindow: BrowserWindow | undefined;
+    public windowName: string;
+    public windowId: number;
+    public browserWindow: BrowserWindow;
 
-    public abstract create(width: number, height: number): void;
+    protected async createBrowserWindow(options: Electron.BrowserWindowConstructorOptions, path: string): Promise<void> {
+        options.webPreferences = {
+            // Use pluginOptions.nodeIntegration, leave this alone
+            // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
+            nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION as unknown as boolean,
+            contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
+        };
 
-    public isVisible(): boolean | undefined {
-        if (!this.browserWindow) {
-            return undefined;
-        }
+        this.browserWindow = new BrowserWindow(options);
+        this.windowId = this.browserWindow.webContents.id;
 
-        return this.browserWindow.isVisible();
-    }
-
-    public show(): void {
-        if (!this.browserWindow) {
-            return;
-        }
-
-        return this.browserWindow.show();
-    }
-
-    public hide(): void {
-        if (!this.browserWindow) {
-            return;
-        }
-
-        return this.browserWindow.hide();
-    }
-
-    protected async createBrowserWindow(path: string, width: number, height: number): Promise<void> {
-        this.browserWindow = new BrowserWindow({
-            width: width,
-            height: height,
-            autoHideMenuBar: true,
-            webPreferences: {
-                // Use pluginOptions.nodeIntegration, leave this alone
-                // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-                nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION as unknown as boolean,
-                contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
-            }
-        });
-
+        this.fixCloseIssues();
         this.loadUrl(path);
     }
 
@@ -59,5 +34,13 @@ export default abstract class AbstractWindow {
             // Load the index.html when not in development
             this.browserWindow.loadURL(`app://./index.html${vuePath}`);
         }
+    }
+
+    private fixCloseIssues() {
+        // Fixes delay on closing window and the issue
+        // that the window does not close if the dev tools are open
+        this.browserWindow.on("close", () => {
+            this.browserWindow.destroy();
+        });
     }
 }

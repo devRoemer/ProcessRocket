@@ -39,5 +39,5 @@ TerminalManager.register();
 async function createMainWindow(): Promise<void> {
     const mainWindow = new MainWindow();
     await mainWindow.create();
-    WindowManager.addWindow(WindowNames.MAIN_WINDOW, mainWindow);
+    WindowManager.addWindow(mainWindow);
 }

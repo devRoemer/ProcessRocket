@@ -21,7 +21,6 @@ export default class HelloWorld extends Vue {
 
         const terminalCreateEventData: ICreateTerminalEventData = {
             identifier: terminalIdentifier,
-            windowName: "main",
             workingDirectory: "C:\\"
         };
 

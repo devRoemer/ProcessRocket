@@ -8,8 +8,8 @@ import Terminal from "./Terminal";
 export class TerminalManager {
     private terminals: { [identifier: string]: Terminal } = {};
 
-    private createListener = async (_: Electron.IpcMainEvent, eventData: ICreateTerminalEventData) => {
-        const window = WindowManager.getWindow(eventData.windowName);
+    private createListener = async (event: Electron.IpcMainEvent, eventData: ICreateTerminalEventData) => {
+        const window = WindowManager.getById(event.sender.id);
         await this.createTerminal(eventData.identifier, window, eventData.workingDirectory);
     };
 

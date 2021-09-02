@@ -1,8 +1,20 @@
 import AbstractWindow from "./AbstractWindow";
+import WindowNames from "./WindowNames";
 
 export default class MainWindow extends AbstractWindow {
-    public async create(width = 800, height = 600): Promise<void> {
-        await this.createBrowserWindow("", width, height);
+    public async create(): Promise<void> {
+        this.windowName = WindowNames.MAIN_WINDOW;
+
+        const options: Electron.BrowserWindowConstructorOptions = {
+            width: 800,
+            minWidth: 800,
+            height: 600,
+            minHeight: 600,
+            useContentSize: true,
+            autoHideMenuBar: true
+        };
+
+        await this.createBrowserWindow(options, "");
         this.addHideOnMimimizeBehaviour();
     }
 
@@ -14,7 +26,7 @@ export default class MainWindow extends AbstractWindow {
 
         this.browserWindow.on("minimize", (event: Event) => {
             event.preventDefault();
-            this.hide();
+            this.browserWindow.hide();
         });
     }
 }
